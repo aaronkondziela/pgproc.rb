@@ -7,7 +7,6 @@ module Pg
 	def initialize(database,schema,user,password)
 		@pg = PG.connect( dbname: database,user: user, password: password)
 		@pg.exec("select proc.proname::text from pg_proc proc join pg_namespace namesp on proc.pronamespace = namesp.oid where namesp.nspname = '" + schema + "'").each do |result|
-			pp result
 			name = result["proname"]
 			define_singleton_method name do |*args|
 				query = "select " + name + "("
