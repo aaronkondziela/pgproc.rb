@@ -6,8 +6,8 @@ require "pgproc/version"
 Gem::Specification.new do |spec|
   spec.name          = "pgproc"
   spec.version       = Pgproc::VERSION
-  spec.authors       = ["Dave Goehrig"]
-  spec.email         = ["dave@dloh.org"]
+  spec.authors       = ["Dave Goehrig", "Aaron Kondziela"]
+  spec.email         = ["dave@dloh.org", "aaron@aaronkondziela.com"]
 
   spec.summary       = %q{Automatically binds methods to stored procedures}
   spec.description   = %q{Creates an object that binds stored procedures in a schema to a class}

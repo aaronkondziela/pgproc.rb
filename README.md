@@ -1,8 +1,6 @@
 # Pgproc
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pgproc`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Automagically creates methods for all database functions within a schema. Makes life grand.
 
 ## Installation
 
@@ -22,7 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+	irb(main):001:0> require_relative "pgproc"
+	=> true
+
+	irb(main):002:0> pg = Pg::Proc.new dbname: "ev"
+	=> #<Pg::Proc:0x00000001f3acb8 @pg=#<PG::Connection:0x00000001f3aba0>>
+
+	irb(main):003:0> res = pg.func_returning_one_thing()
+	=> "42"
+
+	irb(main):004:0> res = pg.func_returning_set_of_records()
+	=> #<PG::Result:0x00000001f123d0 status=PGRES_TUPLES_OK ntuples=2 nfields=6 cmd_tuples=2>
+
+	irb(main):005:0> res[0]
+	=> {"id"=>"123", "data"=>"foo"}
+
+	irb(main):006:0> res[0]['id']
+	=> "123"
+
+	irb(main):007:0> res.each { |row| puts row['id'] }
+	123
+	456
+	=> #<PG::Result:0x00000001f123d0 status=PGRES_TUPLES_OK ntuples=2 nfields=6 cmd_tuples=2>
+
+	irb(main):008:0> res = pg.func_adding_up_args(20, 12, 10)
+	=> "42"
 
 ## Development
 
@@ -32,8 +54,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pgproc.
+Bug reports and pull requests are welcome on GitHub at https://github.com/aaronkondziela/pgproc.rb
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). See LICENSE.txt for details.
+
